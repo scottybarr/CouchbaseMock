@@ -1,4 +1,4 @@
-class FakeCouchbaseBucket:
+class MockCouchbaseBucket:
     def __init__(self, name, server):
         self.cache = {}
 

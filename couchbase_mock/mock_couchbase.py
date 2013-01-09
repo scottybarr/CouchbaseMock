@@ -1,7 +1,7 @@
-from couchbase_mock.fake_couchbase_bucket import FakeCouchbaseBucket
+from couchbase_mock.mock_couchbase_bucket import MockCouchbaseBucket
 
 
-class FakeCouchbase:
+class MockCouchbase:
     def __init__(self, host="0.0.0.0", username="user", password="couchbase"):
         self.buckets = {}
 
@@ -9,7 +9,7 @@ class FakeCouchbase:
         return self.bucket(key)
 
     def bucket(self, bucket_name):
-        self.buckets[bucket_name] = FakeCouchbaseBucket(bucket_name, self)
+        self.buckets[bucket_name] = MockCouchbaseBucket(bucket_name, self)
         return self.buckets[bucket_name]
 
     def buckets(self):

@@ -1,18 +1,18 @@
 import unittest
-from couchbase_mock.fake_couchbase import FakeCouchbase
-from couchbase_mock.fake_couchbase_bucket import FakeCouchbaseBucket
+from couchbase_mock.mock_couchbase import MockCouchbase
+from couchbase_mock.mock_couchbase_bucket import MockCouchbaseBucket
 
 
 class TestFakeCouchbase(unittest.TestCase):
 
     def test_can_construct_fake_couchbase(self):
-        fake = FakeCouchbase()
-        self.assertIsInstance(fake["defaults"], FakeCouchbaseBucket)
+        fake = MockCouchbase()
+        self.assertIsInstance(fake["defaults"], MockCouchbaseBucket)
         
     def test_can_get_and_set(self):
         val = "hello world!"
 
-        fake = FakeCouchbase()["bucket_name"]
+        fake = MockCouchbase()["bucket_name"]
         fake.set("abc", 5, 0, val)
         self.assertEqual(fake.get("abc"), val)
 
