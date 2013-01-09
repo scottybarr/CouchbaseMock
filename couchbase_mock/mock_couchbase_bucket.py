@@ -1,9 +1,10 @@
 import time
 
+
 class MockCouchbaseBucket:
     def __init__(self, name, server):
         self.cache = {}
-        self.expiration = {}
+        self.expiry = {}
 
     def __getitem__(self, key):
         self._checkExpiry(key)
@@ -13,14 +14,14 @@ class MockCouchbaseBucket:
         return self.__getitem__(key)
 
     def set(self, key, expiration, flags, value):
-        self.expiration[key] = 0 if expiration == 0 else (self._getTimeStamp() + expiration)
+        self.expiry[key] = 0 if not expiration else self._getTimeStamp(expiration)
         self.cache[key] = value
 
     def _checkExpiry(self, key):
         currentTime = self._getTimeStamp()
-        if self.expiration[key] and self.expiration[key] < currentTime and self.expiration[key] != 0:
+        if self.expiry[key] and self.expiry[key] < currentTime and self.expiry[key] != 0:
             del self.cache[key]
-            del self.expiration[key]
+            del self.expiry[key]
 
-    def _getTimeStamp(self):
-        return time.time()
+    def _getTimeStamp(self, added_time=0):
+        return time.time() + added_time

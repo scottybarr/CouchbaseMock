@@ -15,6 +15,7 @@ class TestFakeCouchbase(unittest.TestCase):
         fake = MockCouchbase()["bucket_name"]
         fake.set("abc", 5, 0, val)
         self.assertEqual(fake.get("abc"), val)
+        self.assertGreater(fake.expiry["abc"], time.time())
 
     def test_item_has_expired(self):
         val = "test"
