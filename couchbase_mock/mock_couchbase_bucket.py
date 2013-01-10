@@ -7,21 +7,21 @@ class MockCouchbaseBucket:
         self.expiry = {}
 
     def __getitem__(self, key):
-        self._checkExpiry(key)
+        self._check_expiry(key)
         return self.cache[key] if key in self.cache else {}
 
     def get(self, key):
         return self.__getitem__(key)
 
     def set(self, key, expiration, flags, value):
-        self.expiry[key] = 0 if not expiration else self._getTimeStamp(expiration)
+        self.expiry[key] = 0 if not expiration else self._get_timestamp(expiration)
         self.cache[key] = value
 
-    def _checkExpiry(self, key):
-        currentTime = self._getTimeStamp()
+    def _check_expiry(self, key):
+        currentTime = self._get_timestamp()
         if self.expiry[key] and self.expiry[key] < currentTime and self.expiry[key] != 0:
             del self.cache[key]
             del self.expiry[key]
 
-    def _getTimeStamp(self, added_time=0):
+    def _get_timestamp(self, added_time=0):
         return time.time() + added_time

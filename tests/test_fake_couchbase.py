@@ -21,7 +21,7 @@ class TestFakeCouchbase(unittest.TestCase):
         val = "test"
         fake = MockCouchbase()["bucket_name"]
         fake.set("tester", 1, 0, val)
-        fake._getTimeStamp = self.expiredTime
+        fake._get_timestamp = self.expiredTime
         self.assertDictEqual(fake.get("tester"), {})
 
     def test_persistant_get_item(self):
