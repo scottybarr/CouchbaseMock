@@ -3,6 +3,11 @@ CouchbaseMock
 
 A mock couchbase class to be used for python unit tests.
 
+Setup:
+```
+pip install -r requirements.txt
+```
+
 Usage:
 ```
 fake = MockCouchbase()["bucket_name"]
