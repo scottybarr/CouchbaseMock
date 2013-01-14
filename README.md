@@ -9,3 +9,8 @@ fake = MockCouchbase()["bucket_name"]
 fake.set('key', 60, 0, "value")
 fake.get('key') # returns "value"
 ```
+
+Running The tests:
+```
+nosetests
+```
