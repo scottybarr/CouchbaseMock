@@ -5,6 +5,7 @@ class MockCouchbaseBucket:
     def __init__(self, name, server):
         self.cache = {}
         self.expiry = {}
+        self.views = {}
 
     def __getitem__(self, key):
         self._check_expiry(key)
@@ -16,6 +17,12 @@ class MockCouchbaseBucket:
     def set(self, key, expiration, flags, value):
         self.expiry[key] = 0 if not expiration else self._get_timestamp(expiration)
         self.cache[key] = value
+
+    def view(self, view, **options):
+        return self.views[view]
+
+    def set_views(self, views):
+        self.views = views
 
     def _check_expiry(self, key):
         currentTime = self._get_timestamp()
